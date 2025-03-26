@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="x-windows-949">
+    <file url="file://$PROJECT_DIR$/src/frame/GLayerPanel.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/frame/GMainFrame.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/frame/GMainPanel.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/frame/GNewDocumentDialog.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/frame/Layer.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/frame/bar/GMenubar.java" charset="x-windows-949" />
+  </component>
+</project>
