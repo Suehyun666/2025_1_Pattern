@@ -2,26 +2,30 @@ package frame.bar;
 
 import java.awt.*;
 import javax.swing.*;
+import frame.GMainFrame;
+import constants.ActionType;
 
 public class GActionBar extends JToolBar {
-    // attributes
     private static final long serialVersionUID = 1L;
-
+    //components
     private JButton drawButton;
     private JButton moveButton;
     private JButton resizeButton;
     private JButton rotateButton;
     private JButton clearButton;
+    private ActionType selectedAction;
+    private GMainFrame mainFrame;
 
     // constructor
-    public GActionBar() {
-        // 가로 방향 설정
+    public GActionBar(GMainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+        this.selectedAction = ActionType.DRAW;
+        // attribute
         setLayout(new FlowLayout(FlowLayout.LEFT, 5, 2));
         setFloatable(false);
         setBorderPainted(false);
         setBackground(Color.GRAY);
 
-        // 작은 버튼 생성
         this.drawButton = createActionButton("Draw");
         this.moveButton = createActionButton("Move");
         this.resizeButton = createActionButton("Resize");
@@ -43,13 +47,41 @@ public class GActionBar extends JToolBar {
     }
 
     // methods
-    public String getSelectedAction() {
-        // 구현 필요
-        return "Draw"; // 기본값
+    public ActionType getSelectedAction() {
+        return selectedAction;
     }
 
     // initialize
     public void initialize() {
-        // 기본 선택
+        drawButton.addActionListener(e -> {
+            selectedAction = ActionType.DRAW;
+            updateDrawingState();
+        });
+
+        moveButton.addActionListener(e -> {
+            selectedAction = ActionType.MOVE;
+            updateDrawingState();
+        });
+
+        resizeButton.addActionListener(e -> {
+            selectedAction = ActionType.RESIZE;
+            updateDrawingState();
+        });
+
+        rotateButton.addActionListener(e -> {
+            selectedAction = ActionType.ROTATE;
+            updateDrawingState();
+        });
+
+        clearButton.addActionListener(e -> {
+            selectedAction = ActionType.CLEAR;
+            mainFrame.getMainPanel().clearShapes();
+        });
+
+        drawButton.doClick();
+    }
+
+    private void updateDrawingState() {
+        mainFrame.updateDrawingState();
     }
 }
