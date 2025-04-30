@@ -19,6 +19,7 @@ public class GMenuConstants {
 			return this.menu;
 		}
 	}
+
 	public enum EEditMenuItem {
 		eProperty("Property"),
 		eUndo("Undo"),
@@ -104,7 +105,6 @@ public class GMenuConstants {
 		}
 	}
 
-
 	public enum ESelectMenuItem {
 		eAll("All"),
 		eDeselect("Deselect"),
@@ -133,7 +133,6 @@ public class GMenuConstants {
 		}
 	}
 
-
 	public enum ETypeMenuItem {
 		ePanel("Panel"),
 		eLanguage("Language"),
@@ -147,7 +146,6 @@ public class GMenuConstants {
 			return this.menu;
 		}
 	}
-
 
 	public enum EWindowMenuItem {
 		eProperty("Workspace"),
@@ -165,8 +163,4 @@ public class GMenuConstants {
 		}
 	}
 
-
-
-
-	
 }
