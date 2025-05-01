@@ -3,11 +3,7 @@ package frames;
 import constants.ShapeType;
 import shapes.GShapeToolBar;
 import shapes.GShapeToolBar.EShapeType;
-import constants.ActionType;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -19,7 +15,7 @@ public class GMainFrame extends JFrame {
     private GShapeToolBar shapetoolBar;
     private GMenubar menuBar;
     private GMainPanel mainPanel;
-
+    private GPictureToolBar pictureToolBar;
     // constructor
     public GMainFrame() {
         // attributes
@@ -39,6 +35,10 @@ public class GMainFrame extends JFrame {
 
         this.shapetoolBar = new GShapeToolBar(this);
         add(shapetoolBar, BorderLayout.WEST);
+
+        this.pictureToolBar = new GPictureToolBar(this);
+        add(pictureToolBar, BorderLayout.SOUTH);
+        pictureToolBar.showToolBar(true);
 
         setVisible(true);
     }

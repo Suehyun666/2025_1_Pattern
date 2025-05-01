@@ -29,7 +29,7 @@ public class GShapeToolBar extends JToolBar {
     	eEllipse("ellipse", EDrawingType.e2P, GEllipse.class),
     	eLine("line", EDrawingType.e2P, GLine.class),
     	ePolygon("polygon", EDrawingType.enP, GPolygon.class);
-    	
+
     	private String name;
     	private EDrawingType eDrawingType;
     	private Class<?> classShape;
