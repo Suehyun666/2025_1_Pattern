@@ -17,19 +17,19 @@ public class GShape {
 	}
 	
 	public void draw(Graphics2D graphics) {
-		// null Ã¼Å© Ãß°¡
+		// null Ã¼Å© ï¿½ß°ï¿½
 		if (shape != null) {
 			graphics.draw(shape);
 		}
 	}
 	
-	// µµÇüÀÌ Æ¯Á¤ ÁÂÇ¥¸¦ Æ÷ÇÔÇÏ´ÂÁö È®ÀÎÇÏ´Â ¸Þ¼­µå
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public boolean contains(int x, int y) {
 		if (shape == null) return false;
 		return shape.contains(x, y);
 	}
 	
-	// µµÇüÀÌ ´Ù¸¥ µµÇü°ú ±³Â÷ÇÏ´ÂÁö È®ÀÎÇÏ´Â ¸Þ¼­µå
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public boolean intersects(GShape other) {
 		if (shape == null || other == null || other.shape == null) return false;
 		Rectangle thisBounds = shape.getBounds();
@@ -37,13 +37,20 @@ public class GShape {
 		return thisBounds.intersects(otherBounds);
 	}
 	
-	// µµÇüÀ» ÀÌµ¿½ÃÅ°´Â ¸Þ¼­µå
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public void move(int dx, int dy) {
 		if (shape == null) return;
 		
-		// AffineTransformÀ» »ç¿ëÇØ µµÇü ÀÌµ¿
+		// AffineTransformï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 		AffineTransform at = new AffineTransform();
 		at.translate(dx, dy);
 		shape = at.createTransformedShape(shape);
+	}
+
+    protected Rectangle getBounds() {
+		return shape.getBounds();
+    }
+	public GShape clone() {
+		return new GShape();
 	}
 }
