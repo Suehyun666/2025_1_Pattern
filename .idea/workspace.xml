@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="de118810-6a8b-4110-bc4a-cf088fdde8bb" name="변경" comment="20250430 중간 커밋">
-      <change afterPath="$PROJECT_DIR$/src/frames/GPictureToolBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="503dca3c-3471-4514-96c6-0179b8c5b8fa" name="변경" comment="refactor: panel 수정">
+      <change afterPath="$PROJECT_DIR$/src/generator/ImageGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generator/StabilityAIImageGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/menus/file/GNewFileDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frames/GMainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/GMainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frames/GMainPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/GMainPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frames/GMenubar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/GMenubar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frames/GPictureToolBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/GPictureToolBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menus/GFileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/menus/file/GFileMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GPicture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shapes/GPicture.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,24 +29,29 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Suehyun666"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Suehyun666&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Suehyun666/2025_1_Pattern.git",
-    "accountId": "2d620661-3d5e-47cc-980f-fcd585a03346"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Suehyun666/2025_1_Pattern.git&quot;,
+    &quot;accountId&quot;: &quot;2d620661-3d5e-47cc-980f-fcd585a03346&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
-  <component name="ProjectId" id="2wQwDXZ4Yvh6UzoNoj5T1fFATfx" />
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2wetFoTV3u8xuhOpzBuscP7mccp" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -46,15 +60,22 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "완전-포토샵-따라하기",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/psj03/Desktop/2025_1_Pattern/src/transformers",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+    "vue.rearranger.settings.migration": "true",
+    "애플리케이션.GMain.executor": "Run"
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="frames" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\psj03\Desktop\2025_1_Pattern\src\transformers" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -68,29 +89,81 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
-      <changelist id="de118810-6a8b-4110-bc4a-cf088fdde8bb" name="변경" comment="" />
-      <created>1745986986908</created>
+      <changelist id="503dca3c-3471-4514-96c6-0179b8c5b8fa" name="변경" comment="" />
+      <created>1746413769989</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1745986986908</updated>
-      <workItem from="1745986987978" duration="122000" />
+      <updated>1746413769989</updated>
+      <workItem from="1746413771086" duration="1628000" />
+      <workItem from="1746423997312" duration="1406000" />
+      <workItem from="1746520249996" duration="694000" />
+      <workItem from="1746657559235" duration="10144000" />
+      <workItem from="1746680377676" duration="2413000" />
+      <workItem from="1746783501870" duration="285000" />
+      <workItem from="1746790159228" duration="7354000" />
+      <workItem from="1746849183647" duration="5731000" />
     </task>
-    <task id="LOCAL-00001" summary="20250430 중간 커밋">
+    <task id="LOCAL-00001" summary="feat: 도형 추가">
       <option name="closed" value="true" />
-      <created>1745987043530</created>
+      <created>1746424777202</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1745987043530</updated>
+      <updated>1746424777202</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: Transformer 추가 reszie, rotate">
+      <option name="closed" value="true" />
+      <created>1746851847661</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746851847661</updated>
+    </task>
+    <task id="LOCAL-00003" summary="refactor: Transformer move 수정">
+      <option name="closed" value="true" />
+      <created>1746851867366</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1746851867366</updated>
+    </task>
+    <task id="LOCAL-00004" summary="refactor: 도형 수정">
+      <option name="closed" value="true" />
+      <created>1746852213711</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1746852213711</updated>
+    </task>
+    <task id="LOCAL-00005" summary="refactor: transformer 수정">
+      <option name="closed" value="true" />
+      <created>1746852232081</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1746852232081</updated>
+    </task>
+    <task id="LOCAL-00006" summary="refactor: panel 수정">
+      <option name="closed" value="true" />
+      <created>1746852423504</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1746852423504</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="20250430 중간 커밋" />
-    <option name="LAST_COMMIT_MESSAGE" value="20250430 중간 커밋" />
+    <MESSAGE value="feat: 도형 추가" />
+    <MESSAGE value="feat: Transformer 추가 reszie, rotate" />
+    <MESSAGE value="refactor: Transformer move 수정" />
+    <MESSAGE value="refactor: 도형 수정" />
+    <MESSAGE value="refactor: transformer 수정" />
+    <MESSAGE value="refactor: panel 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: panel 수정" />
   </component>
 </project>

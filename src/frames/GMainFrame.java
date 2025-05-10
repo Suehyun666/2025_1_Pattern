@@ -43,7 +43,7 @@ public class GMainFrame extends JFrame {
 
     // initialize
     public void initialize() {
-    	this.menuBar.associate(this.mainPanel);
+    	this.menuBar.associate(this.mainPanel,this);
     	this.shapetoolBar.associate(this.mainPanel);
     	
         menuBar.initialize();

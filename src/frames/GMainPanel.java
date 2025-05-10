@@ -151,64 +151,57 @@ public class GMainPanel extends JPanel {
                 selectionBounds.contains(shapeBounds.getX() + shapeBounds.getWidth(),
                         shapeBounds.getY() + shapeBounds.getHeight());
     }
-    public void setEShapeTool(EShapeTool shapetool) {
-        this.eShapeTool=shapetool;
+    public void setEShapeTool(EShapeTool shapetool) {this.eShapeTool=shapetool;}
+    public void createNewCanvas(int width, int height, String background) {
+        shapes.clear();
+        selectedShapes.clear();
+        currentShape = null;
+        selectedShape = null;
+
+        setPreferredSize(new Dimension(width, height));
+
+        switch (background) {
+            case "White":
+                setBackground(Color.WHITE);
+                break;
+            case "Background Color":
+                setBackground(Color.LIGHT_GRAY);
+                break;
+            case "Transparent":
+                setBackground(new Color(0, 0, 0, 0));
+                break;
+        }
+        revalidate();
+        repaint();
     }
     public void initialize() {
         shapes.clear();
         repaint();
     }
     private class MouseEventHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 1) {
-                this.mouse1Clicked(e);
-            } else if (e.getClickCount() == 2) {
-                this.mouse2Clicked(e);
-            }
-        }
+        private int startX, startY;  // 드래그 시작 좌표
 
-        private void mouse1Clicked(MouseEvent e) {
-            if (eDrawingState == EDrawingState.eidle) {
-                //set transformer
-                if (eShapeTool.getEPoints() == EPoints.e2P) {
-                    startTransform(e.getX(), e.getY());
-                    eDrawingState = EDrawingState.e2P;
-                } else if (eShapeTool.getEPoints() == EPoints.enP) {
-                    startTransform(e.getX(), e.getY());
-                    eDrawingState = EDrawingState.enP;
-                }
-            } else if (eDrawingState == EDrawingState.e2P) {
-                finishTransform(e.getX(), e.getY());
-                eDrawingState = EDrawingState.eidle;
-            } else if (eDrawingState == EDrawingState.enP) {
-                addPoint(e.getX(), e.getY());
-            }
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-            if (eDrawingState == EDrawingState.e2P || eDrawingState == EDrawingState.enP) {
-                keepTransform(e.getX(), e.getY());
-            }
-        }
-
-        private void mouse2Clicked(MouseEvent e) {
-            if (eDrawingState == EDrawingState.enP) {
-                finishTransform(e.getX(), e.getY());
-                eDrawingState = EDrawingState.eidle;
-            }
-        }
         @Override
         public void mousePressed(MouseEvent e) {}
+
         @Override
-        public void mouseDragged(MouseEvent e) { }
+        public void mouseDragged(MouseEvent e) {}
+
         @Override
         public void mouseReleased(MouseEvent e) {}
+
+        @Override
+        public void mouseClicked(MouseEvent e) {}
+
+        @Override
+        public void mouseMoved(MouseEvent e) {}
+
         @Override
         public void mouseEntered(MouseEvent e) {}
+
         @Override
-        public void mouseExited(MouseEvent e) { }
+        public void mouseExited(MouseEvent e) {}
+
         @Override
         public void mouseWheelMoved(MouseWheelEvent e) {}
     }

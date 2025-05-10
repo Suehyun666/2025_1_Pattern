@@ -1,10 +1,9 @@
 package frames;
 
 import javax.swing.JMenuBar;
-import javax.swing.border.EmptyBorder;
 
 import menus.GEditMenu;
-import menus.GFileMenu;
+import menus.file.GFileMenu;
 import menus.GFilterMenu;
 import menus.GGraphicMenu;
 import menus.GHelpMenu;
@@ -82,7 +81,8 @@ public class GMenubar extends JMenuBar {
         helpmenu.initialize();
     }
 
-	public void associate(GMainPanel mainPanel) {
+	public void associate(GMainPanel mainPanel, GMainFrame mainFrame) {
 		this.mainPanel=mainPanel;
+        this.fileMenu.associate(mainFrame);
 	}
 }
