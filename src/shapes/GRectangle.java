@@ -1,42 +1,85 @@
 package shapes;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 public class GRectangle extends GShape {
-	private Rectangle2D.Float rectangle;
-	private int startX, startY; // 시작점 저장
+	private Rectangle2D rectangle;
 
 	public GRectangle() {
-		this.rectangle = new Rectangle2D.Float(0, 0, 0, 0);
-		this.shape = this.rectangle;
+		super(new Rectangle2D.Float(0,0,0,0));
+		this.rectangle = (Rectangle2D) this.getShape();
 	}
 
 	@Override
 	public void setPoint(int x, int y) {
-		// 시작점 저장
-		this.startX = x;
-		this.startY = y;
 		this.rectangle.setFrame(x, y, 0, 0);
 	}
 
 	@Override
 	public void dragPoint(int x, int y) {
-		// 드래그 방향에 따라 올바른 사각형 좌표와 크기 계산
-		float newX = (x < startX) ? x : startX;
-		float newY = (y < startY) ? y : startY;
-		float newWidth = Math.abs(x - startX);
-		float newHeight = Math.abs(y - startY);
-
-		// 사각형 업데이트
-		this.rectangle.setFrame(newX, newY, newWidth, newHeight);
+		double ox = rectangle.getX();
+		double oy = rectangle.getY();
+		double ow = x-ox;
+		double oh = y-oy;
+		this.rectangle.setFrame(ox, oy, ow, oh);
 	}
 
 	@Override
-	public void draw(Graphics2D graphics) {
-		if (shape != null) {
-			graphics.draw(shape);
-		}
+	public void addPoint(int x, int y) {}
+
+	@Override
+	public void movePoint(int x, int y) {
+		int dx=x-px;
+		int dy=y-py;
+		this.rectangle.setFrame(
+				rectangle.getX()+dx, rectangle.getY()+dy,
+				rectangle.getWidth(), rectangle.getHeight());
+		this.px=x;
+		this.py=y;
+	}
+
+	@Override
+	public void rotate(int x, int y) {
+		if (shape == null) return;
+
+		double centerX = rectangle.getX() + rectangle.getWidth() / 2;
+		double centerY = rectangle.getY() + rectangle.getHeight() / 2;
+
+		double angle1 = Math.atan2(py - centerY, px - centerX);
+		double angle2 = Math.atan2(y - centerY, x - centerX);
+		double rotationAngle = angle2 - angle1;
+
+		AffineTransform at = new AffineTransform();
+		at.rotate(rotationAngle, centerX, centerY);
+		shape = at.createTransformedShape(shape);
+		rectangle = (Rectangle2D) shape;
+
+		this.px = x;
+		this.py = y;
+	}
+
+	@Override
+	public void resize(int x, int y) {
+		int dx = x - px;
+		int dy = y - py;
+		double width = rectangle.getWidth() + dx;
+		double height = rectangle.getHeight() + dy;
+		width = Math.max(5, width);
+		height = Math.max(5, height);
+
+		this.rectangle.setFrame(
+				rectangle.getX(), rectangle.getY(),
+				width, height
+		);
+		this.px = x;
+		this.py = y;
+	}
+
+	@Override
+	public GShape clone(int x, int y) {
+		return null;
 	}
 
 	@Override

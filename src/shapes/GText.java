@@ -16,6 +16,7 @@ public class GText extends GShape {
     private Rectangle2D.Float bounds;
 
     public GText() {
+        super(new Rectangle2D.Float(0, 0, 100, 100));
         this.text = "Text";
         this.font = new Font("SansSerif", Font.PLAIN, 12);
         this.bounds = new Rectangle2D.Float(0, 0, 0, 0);
@@ -35,9 +36,67 @@ public class GText extends GShape {
     }
 
     @Override
-    public void dragPoint(int x, int y) {
+    public void movePoint(int x, int y) {
+        int dx = x - px;
+        int dy = y - py;
+        this.x += dx;
+        this.y += dy;
+        updateBounds();
+        this.px = x;
+        this.py = y;
     }
 
+    @Override
+    public void resize(int x, int y) {
+        // 텍스트 크기 조정 (글꼴 크기 변경)
+        int dx = x - px;
+
+        // 폰트 크기 변경 (dx 값에 따라 조정)
+        float newSize = font.getSize() + dx / 10.0f;
+        newSize = Math.max(8, Math.min(72, newSize)); // 최소/최대 크기 제한
+
+        // 새 폰트 생성
+        this.font = font.deriveFont(newSize);
+
+        // 경계 업데이트
+        updateBounds();
+
+        this.px = x;
+        this.py = y;
+    }
+
+    @Override
+    public void rotate(int x, int y) {
+        // 텍스트 회전 (AffineTransform 적용)
+        double centerX = bounds.getX() + bounds.getWidth() / 2;
+        double centerY = bounds.getY() + bounds.getHeight() / 2;
+
+        double angle1 = Math.atan2(py - centerY, px - centerX);
+        double angle2 = Math.atan2(y - centerY, x - centerX);
+        double rotationAngle = angle2 - angle1;
+
+        // 회전을 위한 변환 생성 (텍스트 렌더링 시 적용 필요)
+        AffineTransform at = new AffineTransform();
+        at.rotate(rotationAngle, centerX, centerY);
+
+        // 실제 회전은 그릴 때 적용해야 함
+        // 간단한 구현을 위해 여기서는 shape만 변환
+        shape = at.createTransformedShape(bounds);
+
+        this.px = x;
+        this.py = y;
+    }
+
+    @Override
+    public GShape clone(int x, int y) {
+        GText cloned = new GText(this.text);
+        cloned.x = x;
+        cloned.y = y;
+        cloned.font = this.font;
+        cloned.updateBounds();
+
+        return cloned;
+    }
     // 텍스트 내용 설정
     public void setText(String text) {
         if (text != null && !text.isEmpty()) {
@@ -67,7 +126,7 @@ public class GText extends GShape {
         this.bounds.setFrame(
                 x,
                 y - textLayout.getAscent(), // y는 베이스라인이므로 ascent를 빼서 상단 위치로 조정
-                (float)textBounds.getWidth(),
+                (float) textBounds.getWidth(),
                 textLayout.getAscent() + textLayout.getDescent() + textLayout.getLeading()
         );
 
@@ -76,23 +135,7 @@ public class GText extends GShape {
     }
 
     @Override
-    public void draw(Graphics2D graphics) {
-        if (text != null && !text.isEmpty()) {
-            // 현재 폰트 저장
-            Font oldFont = graphics.getFont();
-
-            // 새 폰트 설정
-            graphics.setFont(font);
-
-            // 텍스트 그리기
-            graphics.drawString(text, x, y);
-
-            // 디버깅용 - 텍스트 경계 표시
-            // graphics.draw(bounds);
-
-            // 폰트 복원
-            graphics.setFont(oldFont);
-        }
+    public void addPoint(int x, int y) {
     }
 
     @Override
@@ -104,14 +147,6 @@ public class GText extends GShape {
         cloned.updateBounds();
         return cloned;
     }
-
-    @Override
-    public void move(int dx, int dy) {
-        this.x += dx;
-        this.y += dy;
-        updateBounds();
-    }
-
     // 이 클래스에 필요한 추가 기능
     public String getText() {
         return text;

@@ -1,6 +1,5 @@
 package shapes;
 
-import java.awt.Graphics2D;
 import java.awt.Polygon;
 
 public class GPolygon extends GShape {
@@ -8,8 +7,8 @@ public class GPolygon extends GShape {
 	private int tempX, tempY; 
 	
 	public GPolygon() {
-		this.polygon = new Polygon();
-		this.shape = this.polygon;
+        super(new Polygon());
+		this.polygon = (Polygon) this.getShape();
 	}
 	
 	@Override
@@ -24,44 +23,105 @@ public class GPolygon extends GShape {
 		this.tempX = x;
 		this.tempY = y;
 	}
-	
 	@Override
-	public void draw(Graphics2D graphics) {
-		// null 체크 추가
-		if (shape == null) return;
-		
-		graphics.draw(shape);
-		
-		// 폴리곤 점이 비어있는지 체크
-		if (this.polygon != null && this.polygon.npoints > 0) {
-			int lastX = this.polygon.xpoints[this.polygon.npoints - 1];
-			int lastY = this.polygon.ypoints[this.polygon.npoints - 1];
-			graphics.drawLine(lastX, lastY, tempX, tempY);
-		}
-	}
-	
 	public void addPoint(int x, int y) {
 		this.polygon.addPoint(x, y);
 		this.tempX = x;
 		this.tempY = y;
 	}
-	
+
 	@Override
-	public void move(int dx, int dy) {
-		// 다각형의 모든 점을 이동
+	public void movePoint(int x, int y) {
+		int dx = x - px;
+		int dy = y - py;
 		if (this.polygon != null && this.polygon.npoints > 0) {
 			for (int i = 0; i < this.polygon.npoints; i++) {
 				this.polygon.xpoints[i] += dx;
 				this.polygon.ypoints[i] += dy;
 			}
-			
-			// tempX, tempY도 함께 이동
 			this.tempX += dx;
 			this.tempY += dy;
-			
-			// Polygon은 내부 데이터가 변경되어도 bounds를 자동으로 업데이트하지 않으므로
-			// 다음 호출로 bounds를 업데이트
 			this.polygon.invalidate();
 		}
+		this.px = x;
+		this.py = y;
+	}
+
+	@Override
+	public void resize(int x, int y) {
+		if (this.polygon == null || this.polygon.npoints <= 0) return;
+
+		int dx = x - px;
+		int dy = y - py;
+
+		int centerX = 0, centerY = 0;
+		for (int i = 0; i < this.polygon.npoints; i++) {
+			centerX += this.polygon.xpoints[i];
+			centerY += this.polygon.ypoints[i];
+		}
+		centerX /= this.polygon.npoints;
+		centerY /= this.polygon.npoints;
+
+		for (int i = 0; i < this.polygon.npoints; i++) {
+			int relX = this.polygon.xpoints[i] - centerX;
+			int relY = this.polygon.ypoints[i] - centerY;
+
+			double scaleX = 1.0 + (double)dx / 100.0;
+			double scaleY = 1.0 + (double)dy / 100.0;
+
+			this.polygon.xpoints[i] = centerX + (int)(relX * scaleX);
+			this.polygon.ypoints[i] = centerY + (int)(relY * scaleY);
+		}
+
+		this.polygon.invalidate();
+		this.px = x;
+		this.py = y;
+	}
+
+	@Override
+	public void rotate(int x, int y) {
+		if (this.polygon == null || this.polygon.npoints <= 0) return;
+
+		int centerX = 0, centerY = 0;
+		for (int i = 0; i < this.polygon.npoints; i++) {
+			centerX += this.polygon.xpoints[i];
+			centerY += this.polygon.ypoints[i];
+		}
+		centerX /= this.polygon.npoints;
+		centerY /= this.polygon.npoints;
+
+		double angle1 = Math.atan2(py - centerY, px - centerX);
+		double angle2 = Math.atan2(y - centerY, x - centerX);
+		double rotationAngle = angle2 - angle1;
+
+		for (int i = 0; i < this.polygon.npoints; i++) {
+			int relX = this.polygon.xpoints[i] - centerX;
+			int relY = this.polygon.ypoints[i] - centerY;
+
+			double cos = Math.cos(rotationAngle);
+			double sin = Math.sin(rotationAngle);
+			double newX = relX * cos - relY * sin;
+			double newY = relX * sin + relY * cos;
+
+			this.polygon.xpoints[i] = centerX + (int)newX;
+			this.polygon.ypoints[i] = centerY + (int)newY;
+		}
+
+		this.polygon.invalidate();
+		this.px = x;
+		this.py = y;
+	}
+
+	@Override
+	public GShape clone(int x, int y) {
+		GPolygon cloned = new GPolygon();
+
+		for (int i = 0; i < this.polygon.npoints; i++) {
+			cloned.polygon.addPoint(this.polygon.xpoints[i], this.polygon.ypoints[i]);
+		}
+		cloned.tempX = this.tempX;
+		cloned.tempY = this.tempY;
+
+		return cloned;
 	}
 }

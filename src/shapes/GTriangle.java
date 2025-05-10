@@ -1,7 +1,6 @@
 package shapes;
 
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.awt.geom.Path2D;
 
 public class GTriangle extends GShape {
@@ -11,26 +10,23 @@ public class GTriangle extends GShape {
     private int[] yPoints;
 
     public GTriangle() {
-        this.triangle = new Path2D.Float();
-        this.shape = this.triangle;
+        super(new Path2D.Float());
+        this.triangle = (Path2D.Float) this.getShape();
         this.xPoints = new int[3];
         this.yPoints = new int[3];
     }
 
     @Override
     public void setPoint(int x, int y) {
-        // 시작점 저장
         this.startX = x;
         this.startY = y;
 
-        // 초기 삼각형은 점 하나로 시작
         this.triangle.reset();
         this.triangle.moveTo(x, y);
         this.triangle.lineTo(x, y);
         this.triangle.lineTo(x, y);
         this.triangle.closePath();
 
-        // 점 배열 초기화
         this.xPoints[0] = x;
         this.yPoints[0] = y;
         this.xPoints[1] = x;
@@ -41,21 +37,25 @@ public class GTriangle extends GShape {
 
     @Override
     public void dragPoint(int x, int y) {
-        // 드래그할 때 삼각형 생성
-        // 첫 번째 점은 시작점
         xPoints[0] = startX;
         yPoints[0] = startY;
 
-        // 두 번째 점은 드래그 지점의 x와 시작점의 y
         xPoints[1] = x;
         yPoints[1] = startY;
 
-        // 세 번째 점은 드래그 지점 좌표
         xPoints[2] = startX + (x - startX) / 2;
         yPoints[2] = y;
-
-        // 패스 업데이트
         updateTrianglePath();
+    }
+
+    @Override
+    public void addPoint(int x, int y) {
+
+    }
+
+    @Override
+    public GShape clone(int x, int y) {
+        return null;
     }
 
     // 삼각형 패스 업데이트
@@ -68,23 +68,88 @@ public class GTriangle extends GShape {
     }
 
     @Override
-    public void draw(Graphics2D graphics) {
-        if (shape != null) {
-            graphics.draw(shape);
-        }
-    }
-
-    @Override
     public GShape clone() {
         GTriangle cloned = new GTriangle();
-        // 점 배열 복사
         System.arraycopy(this.xPoints, 0, cloned.xPoints, 0, 3);
         System.arraycopy(this.yPoints, 0, cloned.yPoints, 0, 3);
 
-        // 패스 업데이트
         cloned.updateTrianglePath();
         cloned.shape = cloned.triangle;
 
         return cloned;
+    }
+    @Override
+    public void movePoint(int x, int y) {
+        int dx = x - px;
+        int dy = y - py;
+
+        // 모든 점 이동
+        for (int i = 0; i < 3; i++) {
+            xPoints[i] += dx;
+            yPoints[i] += dy;
+        }
+
+        // 삼각형 패스 업데이트
+        updateTrianglePath();
+
+        this.px = x;
+        this.py = y;
+    }
+
+    @Override
+    public void resize(int x, int y) {
+        int dx = x - px;
+        int dy = y - py;
+
+        // 삼각형 중심점 계산
+        int centerX = (xPoints[0] + xPoints[1] + xPoints[2]) / 3;
+        int centerY = (yPoints[0] + yPoints[1] + yPoints[2]) / 3;
+
+        // 각 점을 중심에서부터 확대/축소
+        for (int i = 0; i < 3; i++) {
+            // 중심에서의 상대적 위치
+            int relX = xPoints[i] - centerX;
+            int relY = yPoints[i] - centerY;
+
+            // 확대/축소 비율 계산
+            double scaleX = 1.0 + (double)dx / 100.0;
+            double scaleY = 1.0 + (double)dy / 100.0;
+
+            // 새로운 위치 계산
+            xPoints[i] = centerX + (int)(relX * scaleX);
+            yPoints[i] = centerY + (int)(relY * scaleY);
+        }
+
+        // 삼각형 패스 업데이트
+        updateTrianglePath();
+
+        this.px = x;
+        this.py = y;
+    }
+
+    @Override
+    public void rotate(int x, int y) {
+        // 삼각형 중심점 계산
+        int centerX = (xPoints[0] + xPoints[1] + xPoints[2]) / 3;
+        int centerY = (yPoints[0] + yPoints[1] + yPoints[2]) / 3;
+
+        double angle1 = Math.atan2(py - centerY, px - centerX);
+        double angle2 = Math.atan2(y - centerY, x - centerX);
+        double rotationAngle = angle2 - angle1;
+
+        for (int i = 0; i < 3; i++) {
+            int relX = xPoints[i] - centerX;
+            int relY = yPoints[i] - centerY;
+            double cos = Math.cos(rotationAngle);
+            double sin = Math.sin(rotationAngle);
+            double newX = relX * cos - relY * sin;
+            double newY = relX * sin + relY * cos;
+            xPoints[i] = centerX + (int)newX;
+            yPoints[i] = centerY + (int)newY;
+        }
+        updateTrianglePath();
+
+        this.px = x;
+        this.py = y;
     }
 }
