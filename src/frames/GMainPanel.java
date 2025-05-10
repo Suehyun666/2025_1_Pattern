@@ -8,6 +8,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.Stack;
 import java.util.Vector;
 import javax.swing.JPanel;
 
@@ -41,7 +42,13 @@ public class GMainPanel extends JPanel {
     private double zoomLevel = 1.0;
     private Rectangle canvasBound;
     private BufferedImage backgroundImage;
-    private Color canvasBackgroundColor = Color.BLACK;
+    private Stack<Vector<GShape>> undoStack;
+    private Stack<Vector<GShape>> redoStack;
+    private GShape copiedShape;
+    private Color defaultFillColor = Color.WHITE;
+    private Color defaultStrokeColor = Color.BLACK;
+    private float defaultStrokeWidth = 1.0f;
+    private String defaultStrokeStyle = "Solid";
 
     public GMainPanel() {
         setBackground(Color.WHITE);
@@ -55,6 +62,9 @@ public class GMainPanel extends JPanel {
         this.eDrawingState = EDrawingState.eidle;
         this.currentShape = null;
         this.selectedShape = null;
+        undoStack = new Stack<>();
+        redoStack = new Stack<>();
+        copiedShape = null;
     }
 
     // GMainPanel.java의 paintComponent 메서드 수정
@@ -252,6 +262,150 @@ public class GMainPanel extends JPanel {
         }
     }
 
+    public void undo() {
+        if (!undoStack.isEmpty()) {
+            Vector<GShape> currentState = getClonedShapes();
+            redoStack.push(currentState);
+
+            Vector<GShape> previousState = undoStack.pop();
+            setShapes(previousState);
+            repaint();
+        }
+    }
+
+    public void redo() {
+        if (!redoStack.isEmpty()) {
+            Vector<GShape> currentState = getClonedShapes();
+            undoStack.push(currentState);
+
+            Vector<GShape> nextState = redoStack.pop();
+            setShapes(nextState);
+            repaint();
+        }
+    }
+    public void saveState() {
+        Vector<GShape> currentState = getClonedShapes();
+        undoStack.push(currentState);
+        redoStack.clear(); // 새로운 액션 시 redo 스택 클리어
+    }
+    public void copyShape(GShape shape) {
+        if (shape != null) {
+            copiedShape = shape.clone();
+        }
+    }
+    public void cutShape(GShape shape) {
+        if (shape != null) {
+            copyShape(shape);
+            deleteShape(shape);
+        }
+    }
+    public void pasteShape() {
+        if (copiedShape != null) {
+            saveState();
+
+            GShape pastedShape = copiedShape.clone();
+            pastedShape.setLocation(pastedShape.getX() + 20, pastedShape.getY() + 20);
+
+            addShape(pastedShape);
+            setSelectedShape(pastedShape);
+            repaint();
+        }
+    }
+    public boolean hasCopiedShape() {
+        return copiedShape != null;
+    }
+
+    // Shape 삭제
+    public void deleteShape(GShape shape) {
+        if (shape != null) {
+            saveState(); // Undo를 위한 상태 저장
+
+            shapes.remove(shape);
+            if (selectedShape == shape) {
+                selectedShape = null;
+            }
+            repaint();
+        }
+    }
+
+    // Shape 앞으로 이동
+    public void moveShapeForward(GShape shape) {
+        int index = shapes.indexOf(shape);
+        if (index < shapes.size() - 1 && index >= 0) {
+            saveState(); // Undo를 위한 상태 저장
+
+            shapes.remove(index);
+            shapes.add(index + 1, shape);
+            repaint();
+        }
+    }
+
+    // Shape 뒤로 이동
+    public void moveShapeBackward(GShape shape) {
+        int index = shapes.indexOf(shape);
+        if (index > 0) {
+            saveState(); // Undo를 위한 상태 저장
+
+            shapes.remove(index);
+            shapes.add(index - 1, shape);
+            repaint();
+        }
+    }
+
+    // Shape들의 복사본 생성 (Undo/Redo용)
+    private Vector<GShape> getClonedShapes() {
+        Vector<GShape> clonedShapes = new Vector<>();
+        for (GShape shape : shapes) {
+            clonedShapes.add(shape.clone());
+        }
+        return clonedShapes;
+    }
+
+    // Default color getters and setters
+    public Color getDefaultFillColor() {
+        return defaultFillColor;
+    }
+
+    public void setDefaultFillColor(Color color) {
+        this.defaultFillColor = color;
+    }
+
+    public Color getDefaultStrokeColor() {
+        return defaultStrokeColor;
+    }
+
+    public void setDefaultStrokeColor(Color color) {
+        this.defaultStrokeColor = color;
+    }
+
+    public float getDefaultStrokeWidth() {
+        return defaultStrokeWidth;
+    }
+
+    public void setDefaultStrokeWidth(float width) {
+        this.defaultStrokeWidth = width;
+    }
+
+    public String getDefaultStrokeStyle() {
+        return defaultStrokeStyle;
+    }
+
+    public void setDefaultStrokeStyle(String style) {
+        this.defaultStrokeStyle = style;
+    }
+
+    // GShape에 필요한 메서드들
+    public void addShape(GShape shape) {
+        shapes.add(shape);
+    }
+
+    public GShape getSelectedShape() {
+        return selectedShape;
+    }
+
+    public void setSelectedShape(GShape shape) {
+        this.selectedShape = shape;
+    }
     private class MouseEventHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
         @Override
         public void mouseClicked(MouseEvent e) {

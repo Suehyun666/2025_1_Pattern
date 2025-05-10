@@ -4,6 +4,7 @@ public class GMenuConstants {
 	public enum EFileMenuItem {
 		eNew("New"),
 		eOpen("Open"),
+		eClose("Close"),
 		eSave("Save"),
 		eSaveAs("Save as"),
 		ePrint("Print"),
@@ -32,15 +33,11 @@ public class GMenuConstants {
 		eClear("Clear"),
 		eFill("Fill"),
 		eColorSetting("Color Setting");
-
-		private String menu;
-		EEditMenuItem(String menu) {
-			this.menu = menu;
-		}
-		public String getText() {
-			return this.menu;
-		}
+		private String text;
+		EEditMenuItem(String text) {this.text = text;}
+		public String getText() {return this.text;}
 	}
+
 
 	public enum EGraphicMenuItem {
 		eLineThickness("Line Thickness"),

@@ -2,7 +2,7 @@ package frames;
 
 import javax.swing.JMenuBar;
 
-import menus.GEditMenu;
+import menus.edit.GEditMenu;
 import menus.file.GFileMenu;
 import menus.GFilterMenu;
 import menus.GGraphicMenu;

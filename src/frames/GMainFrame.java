@@ -60,4 +60,7 @@ public class GMainFrame extends JFrame {
     public void setModified(boolean b) {
         this.modified=b;
     }
+    public boolean isModified() {
+        return modified;
+    }
 }
