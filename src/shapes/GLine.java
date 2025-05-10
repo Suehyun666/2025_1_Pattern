@@ -24,9 +24,7 @@ public class GLine extends GShape {
 	}
 
 	@Override
-	public void addPoint(int x, int y) {
-
-	}
+	public void addPoint(int x, int y) {}
 	
 	@Override
 	public boolean contains(int x, int y) {

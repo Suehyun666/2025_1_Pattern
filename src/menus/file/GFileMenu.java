@@ -40,6 +40,11 @@ public class GFileMenu extends JMenu {
 				menuItem.setAccelerator(KeyStroke.getKeyStroke(
 						KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
 			}
+			if (eFileMenuItem == EFileMenuItem.eOpen) {
+				menuItem.setAccelerator(KeyStroke.getKeyStroke(
+						KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
+
+			}
 			this.add(menuItem);
 		}
 		
@@ -187,7 +192,6 @@ public class GFileMenu extends JMenu {
 	private BufferedImage createImageFromPanel(GMainPanel panel) {
 		Rectangle canvasBounds = panel.getCanvasBounds();
 		if (canvasBounds == null) {
-			// 캔버스 영역이 없으면 전체 패널
 			Dimension size = panel.getPreferredSize();
 			canvasBounds = new Rectangle(0, 0, size.width, size.height);
 		}
@@ -199,14 +203,12 @@ public class GFileMenu extends JMenu {
 		// 안티앨리어싱 설정
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		// 배경 그리기
 		Color bgColor = panel.getCanvasBackground();
 		if (bgColor != null && bgColor.getAlpha() > 0) {
 			g2d.setColor(bgColor);
 			g2d.fillRect(0, 0, canvasBounds.width, canvasBounds.height);
 		}
 
-		// 도형 그리기
 		g2d.translate(-canvasBounds.x, -canvasBounds.y);
 		panel.paintShapes(g2d);
 
@@ -214,14 +216,11 @@ public class GFileMenu extends JMenu {
 		return image;
 	}
 
-	// 프로젝트 파일 저장 (도형 정보 포함)
 	private void saveProjectFile(File file, GMainPanel panel) throws IOException {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
-			// 캔버스 정보 저장
 			oos.writeObject(panel.getCanvasBounds());
 			oos.writeObject(panel.getCanvasBackground());
 
-			// 도형 정보 저장
 			Vector<GShape> shapes = panel.getShapes();
 			oos.writeInt(shapes.size());
 			for (GShape shape : shapes) {
@@ -231,16 +230,9 @@ public class GFileMenu extends JMenu {
 	}
 
 	public void open() {
-		JFileChooser fileChooser = new JFileChooser();
-
-		// 파일 필터 추가
-		FileNameExtensionFilter allFilter = new FileNameExtensionFilter(
-				"All Supported Formats", "psd", "png", "jpg", "jpeg", "bmp", "gif");
-		fileChooser.addChoosableFileFilter(allFilter);
-		fileChooser.setFileFilter(allFilter);
-
-		if (fileChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
-			File file = fileChooser.getSelectedFile();
+		GOpenFileDialog dialog = new GOpenFileDialog(frame);
+		if (dialog.showDialog()) {
+			File file = dialog.getSelectedFile();
 			openFile(file);
 		}
 	}
@@ -259,6 +251,7 @@ public class GFileMenu extends JMenu {
 			frame.setTitle(file.getName() + " - Drawing Application");
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(frame, "Error opening file: " + e.getMessage(),
 					"Open Error", JOptionPane.ERROR_MESSAGE);
 		}
@@ -270,7 +263,7 @@ public class GFileMenu extends JMenu {
 			Color canvasBackground = (Color) ois.readObject();
 
 			GMainPanel panel = frame.getMainPanel();
-			panel.setCanvasBounds(canvasBounds);
+			panel.setCanvasBounds(canvasBounds);  // 이미 수정됨
 			panel.setCanvasBackground(canvasBackground);
 
 			int shapeCount = ois.readInt();
@@ -285,11 +278,14 @@ public class GFileMenu extends JMenu {
 
 	private void openImageFile(File file) throws IOException {
 		BufferedImage image = ImageIO.read(file);
+		if (image == null) {
+			throw new IOException("Cannot read image file: " + file.getName());
+		}
 		GMainPanel panel = frame.getMainPanel();
-
-		// 이미지를 새 캔버스로 설정
 		panel.createNewCanvas(image.getWidth(), image.getHeight(), "White");
 		panel.setBackgroundImage(image);
+
+		System.out.println("Image loaded: " + image.getWidth() + "x" + image.getHeight());
 	}
 
 	private class ActionHandler implements ActionListener {
@@ -306,6 +302,10 @@ public class GFileMenu extends JMenu {
 				case eSaveAs:
 					saveAs();
 					break;
+				case eOpen:
+					open();
+					break;
+
 				default:
 					break;
 			}

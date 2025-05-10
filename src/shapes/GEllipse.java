@@ -30,13 +30,6 @@ public class GEllipse extends GShape {
 	public void addPoint(int x, int y) {
 
 	}
-
-	@Override
-	public void draw(Graphics2D graphics) {
-		if (shape != null) {
-			graphics.draw(shape);
-		}
-	}
 	@Override
 	public void movePoint(int x, int y) {
 		int dx = x - px;

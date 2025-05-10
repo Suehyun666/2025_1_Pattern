@@ -40,6 +40,7 @@ public class GMainPanel extends JPanel {
     private Rectangle canvasBounds;
     private double zoomLevel = 1.0;
     private Rectangle canvasBound;
+    private BufferedImage backgroundImage;
     private Color canvasBackgroundColor = Color.BLACK;
 
     public GMainPanel() {
@@ -56,6 +57,7 @@ public class GMainPanel extends JPanel {
         this.selectedShape = null;
     }
 
+    // GMainPanel.java의 paintComponent 메서드 수정
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -69,19 +71,27 @@ public class GMainPanel extends JPanel {
         g2d.fillRect(0, 0, (int)(getWidth() / zoomLevel), (int)(getHeight() / zoomLevel));
 
         if (canvasBounds != null) {
-            // 캔버스 그리기
+            // 캔버스 그림자
             g2d.setColor(new Color(200, 200, 200));
             g2d.fillRect(canvasBounds.x + 5, canvasBounds.y + 5,
                     canvasBounds.width, canvasBounds.height);
-            g2d.setColor(Color.WHITE);
+
+            // 캔버스 배경색
+            g2d.setColor(canvasBackground);
             g2d.fillRect(canvasBounds.x, canvasBounds.y,
                     canvasBounds.width, canvasBounds.height);
+
+            // 배경 이미지가 있으면 그리기 - 이 부분이 누락되어 있습니다!
+            if (backgroundImage != null) {
+                g2d.drawImage(backgroundImage, canvasBounds.x, canvasBounds.y,
+                        canvasBounds.width, canvasBounds.height, null);
+            }
+
+            // 캔버스 테두리
             g2d.setColor(Color.DARK_GRAY);
             g2d.drawRect(canvasBounds.x, canvasBounds.y,
                     canvasBounds.width - 1, canvasBounds.height - 1);
         }
-
-        // 도형 그리기
         for(GShape shape: shapes) {
             shape.draw(g2d);
         }
@@ -188,15 +198,17 @@ public class GMainPanel extends JPanel {
         selectedShapes.clear();
         currentShape = null;
         selectedShape = null;
+        backgroundImage = null;  // 새 캔버스 생성 시 배경 이미지 초기화
+
         switch (background) {
             case "White":
-                setBackground(Color.WHITE);
+                canvasBackground = Color.WHITE;  // setBackground가 아니라 canvasBackground
                 break;
             case "Background Color":
-                setBackground(Color.LIGHT_GRAY);
+                canvasBackground = Color.LIGHT_GRAY;
                 break;
             case "Transparent":
-                setBackground(new Color(0, 0, 0, 0));
+                canvasBackground = new Color(0, 0, 0, 0);
                 break;
         }
         revalidate();
@@ -214,7 +226,12 @@ public class GMainPanel extends JPanel {
         return canvasBackground;
     }
     public void setBackgroundImage(BufferedImage image) {
-
+        this.backgroundImage = image;
+        repaint();
+    }
+    public void setCanvasBackground(Color color) {
+        this.canvasBackground = color;
+        repaint();
     }
     public Vector<GShape> getShapes() {
         return shapes;
@@ -227,11 +244,12 @@ public class GMainPanel extends JPanel {
             shape.draw(g2d);
         }
     }
-    public void setCanvasBounds(Rectangle canvasBounds) {
-        this.canvasBound=canvasBounds;
-    }
-
-    public void setCanvasBackground(Color canvasBackground) {
+    public void setCanvasBounds(Rectangle bounds) {
+        this.canvasBounds = bounds;
+        if (bounds != null) {
+            setPreferredSize(new Dimension(bounds.width + 200, bounds.height + 200));
+            revalidate();
+        }
     }
 
     private class MouseEventHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
@@ -324,11 +342,11 @@ public class GMainPanel extends JPanel {
                 // 일반 휠: 스크롤 (JScrollPane이 자동으로 처리)
                 // 추가 작업 필요 없음
             }
-            if (e.isControlDown()) {
-                // ... 줌 로직 ...
-                updatePanelSize();
-                repaint();
-            }
+//            if (e.isControlDown()) {
+//                // ... 줌 로직 ...
+//                updatePanelSize();
+//                repaint();
+//            }
         }
         private void updatePanelSize() {
             if (canvasBounds != null) {

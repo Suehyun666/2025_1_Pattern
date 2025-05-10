@@ -22,7 +22,6 @@
 //
 //    // 기본 생성자
 //    public GPicture() {
-//        super();
 //        this.imagePath = null;
 //        this.x = 0;
 //        this.y = 0;
@@ -32,6 +31,7 @@
 //
 //    // 파일 경로로 생성
 //    public GPicture(String imagePath) {
+//        super((GPicture) imagePath);
 //        this.imagePath = imagePath;
 //        loadImage(imagePath);
 //        this.x = 0;
@@ -87,6 +87,11 @@
 //    public void setmovePoint(int x, int y) {
 //        this.px = x;
 //        this.py = y;
+//    }
+//
+//    @Override
+//    public void addPoint(int x, int y) {
+//
 //    }
 //
 //    @Override
@@ -180,13 +185,5 @@
 //        clone.width = this.width;
 //        clone.height = this.height;
 //        return clone;
-//    }
-//
-//    @Override
-//    public boolean intersects(GShape shape) {
-//        if (shape == null) return false;
-//        Rectangle shapeBounds = shape.getBounds();
-//        Rectangle thisBounds = this.getBounds();
-//        return thisBounds.intersects(shapeBounds);
 //    }
 //}

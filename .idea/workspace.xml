@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="503dca3c-3471-4514-96c6-0179b8c5b8fa" name="변경" comment="feature : new &amp; save /save :불완전">
+    <list default="true" id="503dca3c-3471-4514-96c6-0179b8c5b8fa" name="변경" comment="feature : 확대 &amp; 축소">
+      <change afterPath="$PROJECT_DIR$/src/menus/file/GOpenFileDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frames/GMainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/GMainFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frames/GMainPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/GMainPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/menus/file/GFileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/menus/file/GFileMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shapes/GShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shapes/GShape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GEllipse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shapes/GEllipse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shapes/GLine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GOval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shapes/GOval.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GPicture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shapes/GPicture.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +160,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746871824412</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feature : 확대 &amp; 축소">
+      <option name="closed" value="true" />
+      <created>1746877176678</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1746877176678</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,6 +183,7 @@
     <MESSAGE value="refactor: panel 수정" />
     <MESSAGE value="20250430 중간 커밋" />
     <MESSAGE value="feature : new &amp; save /save :불완전" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature : new &amp; save /save :불완전" />
+    <MESSAGE value="feature : 확대 &amp; 축소" />
+    <option name="LAST_COMMIT_MESSAGE" value="feature : 확대 &amp; 축소" />
   </component>
 </project>

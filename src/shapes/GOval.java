@@ -62,18 +62,14 @@ public class GOval extends GShape{
 				ellipse.getX(), ellipse.getY(),
 				width, height
 		);
-
 		this.px = x;
 		this.py = y;
 	}
 
 	@Override
 	public void rotate(int x, int y) {
-		if (shape == null) return;
-
 		double centerX = ellipse.getX() + ellipse.getWidth() / 2;
 		double centerY = ellipse.getY() + ellipse.getHeight() / 2;
-
 		double angle1 = Math.atan2(py - centerY, px - centerX);
 		double angle2 = Math.atan2(y - centerY, x - centerX);
 		double rotationAngle = angle2 - angle1;
@@ -82,11 +78,9 @@ public class GOval extends GShape{
 		at.rotate(rotationAngle, centerX, centerY);
 		shape = at.createTransformedShape(shape);
 
-		// 타원 참조 업데이트
 		if (shape instanceof Ellipse2D) {
 			this.ellipse = (Ellipse2D.Float) shape;
 		}
-
 		this.px = x;
 		this.py = y;
 	}
@@ -94,7 +88,6 @@ public class GOval extends GShape{
 	@Override
 	public GShape clone(int x, int y) {
 		GOval cloned = new GOval();
-
 		float dx = (float) (x - ellipse.getX());
 		float dy = (float) (y - ellipse.getY());
 
@@ -103,9 +96,7 @@ public class GOval extends GShape{
 				ellipse.getWidth(),
 				ellipse.getHeight()
 		);
-
 		cloned.shape = cloned.ellipse;
-
 		return cloned;
 	}
 }
