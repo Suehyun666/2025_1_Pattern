@@ -29,7 +29,8 @@ public class GMainFrame extends JFrame {
         this.setJMenuBar(menuBar);
 
         this.mainPanel = new GMainPanel();
-        add(mainPanel, BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(mainPanel);
+        add(scrollPane, BorderLayout.CENTER);
 
         this.shapetoolBar = new GShapeToolBar(this);
         add(shapetoolBar, BorderLayout.WEST);

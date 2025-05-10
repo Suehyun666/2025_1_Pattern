@@ -99,7 +99,6 @@ public class GNewFileDialog extends JDialog {
         buttonPanel.add(cancelButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Set OK as default button
         getRootPane().setDefaultButton(okButton);
     }
 
