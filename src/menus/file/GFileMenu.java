@@ -5,18 +5,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.*;
 import java.util.Vector;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import constants.GMenuConstants.EFileMenuItem;
 import frames.GMainFrame;
 import frames.GMainPanel;
 import shapes.GShape;
 
+import static java.awt.print.Printable.PAGE_EXISTS;
 
 public class GFileMenu extends JMenu {
 	//component
@@ -35,16 +38,25 @@ public class GFileMenu extends JMenu {
 			menuItem.addActionListener(actionHandler);
 			if (eFileMenuItem == EFileMenuItem.eNew) {
 				menuItem.setAccelerator(KeyStroke.getKeyStroke(
-						KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
-			}if (eFileMenuItem == EFileMenuItem.eSave) {
+						KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));}
+			if (eFileMenuItem == EFileMenuItem.eSave) {
 				menuItem.setAccelerator(KeyStroke.getKeyStroke(
-						KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
-			}
+						KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));}
+			if (eFileMenuItem == EFileMenuItem.eSaveAs) {
+				menuItem.setAccelerator(KeyStroke.getKeyStroke(
+						KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK));}
 			if (eFileMenuItem == EFileMenuItem.eOpen) {
 				menuItem.setAccelerator(KeyStroke.getKeyStroke(
-						KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
-
-			}
+						KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));}
+			if (eFileMenuItem == EFileMenuItem.eExit) {
+				menuItem.setAccelerator(KeyStroke.getKeyStroke(
+						KeyEvent.VK_Q, KeyEvent.CTRL_DOWN_MASK));}
+			if (eFileMenuItem == EFileMenuItem.ePrint) {
+				menuItem.setAccelerator(KeyStroke.getKeyStroke(
+						KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK));}
+			if (eFileMenuItem == EFileMenuItem.eClose) {
+				menuItem.setAccelerator(KeyStroke.getKeyStroke(
+						KeyEvent.VK_W, KeyEvent.CTRL_DOWN_MASK));}
 			this.add(menuItem);
 		}
 		
@@ -68,6 +80,7 @@ public class GFileMenu extends JMenu {
 				String background = dialog.getBackgroundContent();
 				frame.setTitle(fileName);
 				frame.getMainPanel().createNewCanvas(width, height, background);
+				this.frame.setModified(true);
 			}
 		}
 	}
@@ -77,7 +90,6 @@ public class GFileMenu extends JMenu {
 		if (currentFile == null) {
 			saveAs();
 		} else {
-			// 현재 파일에 저장
 			saveToFile(currentFile);
 		}
 	}
@@ -220,7 +232,7 @@ public class GFileMenu extends JMenu {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
 			oos.writeObject(panel.getCanvasBounds());
 			oos.writeObject(panel.getCanvasBackground());
-
+			this.frame.setModified(true);
 			Vector<GShape> shapes = panel.getShapes();
 			oos.writeInt(shapes.size());
 			for (GShape shape : shapes) {
@@ -240,7 +252,7 @@ public class GFileMenu extends JMenu {
 	private void openFile(File file) {
 		try {
 			String extension = file.getName().substring(file.getName().lastIndexOf('.') + 1).toLowerCase();
-
+			this.frame.setModified(true);
 			if (extension.equals("psd")) {
 				openProjectFile(file);
 			} else {
@@ -288,6 +300,85 @@ public class GFileMenu extends JMenu {
 		System.out.println("Image loaded: " + image.getWidth() + "x" + image.getHeight());
 	}
 
+	private void print() {
+		if (frame != null) {
+			GPrintFileDialog dialog = new GPrintFileDialog(frame);
+			if (dialog.showDialog()) {
+				try {
+					PrinterJob printerJob = dialog.getPrinterJob();
+					PageFormat pageFormat = dialog.getPageFormat();
+
+					// Create a printable version of the main panel
+					Printable printable = new Printable() {
+						@Override
+						public int print(Graphics graphics, PageFormat pageFormat, int pageIndex)
+								throws PrinterException {
+							if (pageIndex > 0) {
+								return NO_SUCH_PAGE;
+							}
+
+							Graphics2D g2d = (Graphics2D) graphics;
+							g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+
+							// Scale the panel to fit the page
+							GMainPanel panel = frame.getMainPanel();
+							double scaleX = pageFormat.getImageableWidth() / panel.getWidth();
+							double scaleY = pageFormat.getImageableHeight() / panel.getHeight();
+							double scale = Math.min(scaleX, scaleY);
+
+							g2d.scale(scale, scale);
+
+							// Paint the panel
+							panel.paint(g2d);
+
+							return PAGE_EXISTS;
+						}
+					};
+
+					printerJob.setPrintable(printable, pageFormat);
+
+					if (printerJob.printDialog()) {
+						printerJob.print();
+					}
+
+				} catch (PrinterException ex) {
+					JOptionPane.showMessageDialog(frame,
+							"Error printing: " + ex.getMessage(),
+							"Print Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+	}
+
+	private void exit(){
+		if (!checkSaveorNot()) {
+			System.exit(0);
+		}
+	}
+
+	private boolean checkSaveorNot() {
+		boolean bCancel = true;
+		if (this.frame.isModified()) {
+			int reply = JOptionPane.showConfirmDialog(this.frame, "Do you want to save your changes?");
+			if (reply == JOptionPane.OK_OPTION) {
+				this.save();
+				bCancel = false;
+			} else if (reply == JOptionPane.NO_OPTION) {
+				this.frame.setModified(false);
+				bCancel = false;
+			} else if (reply == JOptionPane.CANCEL_OPTION) {
+				// 암모것도 안함
+				bCancel = true;
+			} else {
+				bCancel = true;
+			}
+		} else {
+			bCancel = false;
+		}
+		return bCancel;
+	}
+
 	private class ActionHandler implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -305,7 +396,11 @@ public class GFileMenu extends JMenu {
 				case eOpen:
 					open();
 					break;
-
+				case ePrint:
+					print();
+					break;
+				case eExit:
+					exit();
 				default:
 					break;
 			}
