@@ -18,7 +18,6 @@ public class GMover extends GTransFormer {
 
 	@Override
 	public void start(Graphics2D graphics, int x, int y) {
-		System.out.println("Mover start");
 		this.startX = x;
 		this.startY = y;
 		for(GShape shape : selectedShapes) {
