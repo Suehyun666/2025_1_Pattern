@@ -1,4 +1,4 @@
-package menus;
+package menus.graphic;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -31,7 +31,5 @@ public class GGraphicMenu extends JMenu {
         this.add(fontSizeItem);
     }
     //initialize
-	public void initialize() {
-		
-	}
+	public void initialize() {}
 }

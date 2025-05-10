@@ -1,38 +1,34 @@
-package menus;
+package menus.filter;
 
 import constants.GMenuConstants;
-import constants.GMenuConstants.ETypeMenuItem;
+import constants.GMenuConstants.EFilterMenuItem;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-public class GTypeMenu extends JMenu{
+public class GFilterMenu extends JMenu{
 	private static final long serialVersionUID = 1L;
 
-	public GTypeMenu(String text) {
+	public GFilterMenu(String text) {
 		super(text);
 		ActionHandler actionHandler = new ActionHandler();
 
-		for (ETypeMenuItem eTypeMenuItem : ETypeMenuItem.values()) {
-			JMenuItem menuItem = new JMenuItem(eTypeMenuItem.getText());
-			menuItem.setActionCommand(eTypeMenuItem.name());
+		for (GMenuConstants.EEditMenuItem eEditMenuItem : GMenuConstants.EEditMenuItem.values()) {
+			JMenuItem menuItem = new JMenuItem(eEditMenuItem.getText());
+			menuItem.setActionCommand(eEditMenuItem.name());
 			menuItem.addActionListener(actionHandler);
 
-			switch (eTypeMenuItem) {
-				case eForward:
+			switch (eEditMenuItem) {
+				case eUndo:
 					menuItem.setAccelerator(KeyStroke.getKeyStroke(
 							KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
 					break;
-				case eLanguage:
+				case eCut:
 					menuItem.setAccelerator(KeyStroke.getKeyStroke(
 							KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK));
 					break;
-				case ePanel:
-					menuItem.setAccelerator(KeyStroke.getKeyStroke(
-							KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK));
-					break;
-
 				default:
 					break;
 			}
@@ -41,23 +37,21 @@ public class GTypeMenu extends JMenu{
 	}
 
 	public void initialize() {}
-	public void forward(){}
-	public void language(){}
-	public void panel(){}
+	public void blur(){}
+	public void unBlur(){}
+	public void noise(){}
 	private class ActionHandler implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ETypeMenuItem eMenuItem= ETypeMenuItem.valueOf(e.getActionCommand());
+			EFilterMenuItem eMenuItem= EFilterMenuItem.valueOf(e.getActionCommand());
 			switch (eMenuItem) {
-				case eForward:
-					forward();
+				case eBlur:
+					blur();
 					break;
-				case eLanguage:
-					language();
+				case eNoise:
+					noise();
 					break;
-				case ePanel:
-					panel();
-					break;
+
 				default:
 					break;
 			}

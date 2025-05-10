@@ -29,7 +29,6 @@ public class GEditMenu extends JMenu {
             menuItem.setActionCommand(eEditMenuItem.name());
             menuItem.addActionListener(actionHandler);
 
-            // Set keyboard shortcuts
             switch (eEditMenuItem) {
                 case eUndo:
                     menuItem.setAccelerator(KeyStroke.getKeyStroke(
@@ -61,7 +60,6 @@ public class GEditMenu extends JMenu {
 
             this.add(menuItem);
 
-            // Add separator after Property menu item
             if (eEditMenuItem == EEditMenuItem.eProperty) {
                 this.addSeparator();
             }

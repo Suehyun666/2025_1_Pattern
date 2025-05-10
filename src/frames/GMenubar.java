@@ -4,10 +4,10 @@ import javax.swing.JMenuBar;
 
 import menus.edit.GEditMenu;
 import menus.file.GFileMenu;
-import menus.GFilterMenu;
-import menus.GGraphicMenu;
+import menus.filter.GFilterMenu;
+import menus.graphic.GGraphicMenu;
 import menus.GHelpMenu;
-import menus.GImageMenu;
+import menus.image.GImageMenu;
 import menus.GLayerMenu;
 import menus.GSelectMenu;
 import menus.GTypeMenu;

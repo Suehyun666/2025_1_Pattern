@@ -55,9 +55,9 @@ public class GMenuConstants {
 	}
 
 	public enum EHelpMenuItem {
+		eAbout("About"),
 		eSystemInfo("System Info"),
-		eAbout("about"),
-		eOnline("online");
+		eOnline("Online");
 
 		private String menu;
 		EHelpMenuItem(String menu) {
@@ -70,6 +70,7 @@ public class GMenuConstants {
 
 	public enum EImageMenuItem {
 		eMode("Mode"),
+		eAutoTone("AutoTone"),
 		eImageSize("Image Size"),
 		eCanvasSize("Canvas Size"),
 		eRotate("Rotate Image"),
@@ -89,10 +90,16 @@ public class GMenuConstants {
 		eNewLayer("New Layer"),
 		eDuplicate("Duplicate"),
 		eDeleteLayer("Delete Layer"),
+
 		eRenameLayer("Rename Layer"),
-		eLock("Lock"),
-		eMerge("Merge"),
-		eHide("Hide");
+		eGroupLayer("Group Layer"),
+		eUnGroupLayer("UnGroup Layer"),
+		eSmartLayer("Smart Layer"),
+
+		eLock("Lock Layers"),
+		eMerge("Merge Layer"),
+		eHide("Hide Layer");
+
 		private String menu;
 		ELayerMenuItem(String menu) {
 			this.menu = menu;
