@@ -13,6 +13,7 @@ public class GMainFrame extends JFrame {
     private GShapeToolBar shapetoolBar;
     private GMenubar menuBar;
     private GMainPanel mainPanel;
+    private boolean modified;
 //    private GPictureToolBar pictureToolBar;
     // constructor
     public GMainFrame() {
@@ -56,4 +57,7 @@ public class GMainFrame extends JFrame {
         return mainPanel;
     }
 
+    public void setModified(boolean b) {
+        this.modified=b;
+    }
 }

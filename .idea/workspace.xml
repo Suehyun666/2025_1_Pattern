@@ -4,17 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="503dca3c-3471-4514-96c6-0179b8c5b8fa" name="변경" comment="refactor: panel 수정">
-      <change afterPath="$PROJECT_DIR$/src/generator/ImageGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generator/StabilityAIImageGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/menus/file/GNewFileDialog.java" afterDir="false" />
+    <list default="true" id="503dca3c-3471-4514-96c6-0179b8c5b8fa" name="변경" comment="feature : new &amp; save /save :불완전">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frames/GMainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/GMainFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frames/GMainPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/GMainPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frames/GMenubar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/GMenubar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frames/GPictureToolBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/GPictureToolBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/menus/GFileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/menus/file/GFileMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shapes/GPicture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shapes/GPicture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menus/file/GFileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/menus/file/GFileMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shapes/GShape.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,26 +51,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "완전-포토샵-따라하기",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/psj03/Desktop/2025_1_Pattern/src/transformers",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true",
-    "애플리케이션.GMain.executor": "Run"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;완전-포토샵-따라하기&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/psj03/Desktop/2025_1_Pattern/src/transformers&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;애플리케이션.GMain.executor&quot;: &quot;Run&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\psj03\Desktop\2025_1_Pattern\src\transformers" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="menus.file" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -151,7 +149,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746852423504</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="feature : new &amp; save /save :불완전">
+      <option name="closed" value="true" />
+      <created>1746871824412</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1746871824412</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,6 +170,8 @@
     <MESSAGE value="refactor: 도형 수정" />
     <MESSAGE value="refactor: transformer 수정" />
     <MESSAGE value="refactor: panel 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: panel 수정" />
+    <MESSAGE value="20250430 중간 커밋" />
+    <MESSAGE value="feature : new &amp; save /save :불완전" />
+    <option name="LAST_COMMIT_MESSAGE" value="feature : new &amp; save /save :불완전" />
   </component>
 </project>

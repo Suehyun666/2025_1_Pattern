@@ -2,8 +2,10 @@ package shapes;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.io.Serializable;
 
-public abstract class GShape {
+public abstract class GShape implements Serializable {
+	private static final long serialVersionUID = 1L;
 	protected Shape shape;
 	protected int px,py;
 	private boolean selected;

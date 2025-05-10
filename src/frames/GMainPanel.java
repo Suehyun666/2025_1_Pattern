@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.util.Vector;
 import javax.swing.JPanel;
 
@@ -28,6 +29,7 @@ public class GMainPanel extends JPanel {
         eResize, eRotate, eMove
     }
     private Vector<GShape> selectedShapes = new Vector<GShape>();
+    private Color canvasBackground = Color.WHITE;
     private Vector<GShape> shapes;
     private GShape currentShape;
     private GShape selectedShape;
@@ -37,6 +39,8 @@ public class GMainPanel extends JPanel {
     private GTransFormer transformer;
     private Rectangle canvasBounds;
     private double zoomLevel = 1.0;
+    private Rectangle canvasBound;
+    private Color canvasBackgroundColor = Color.BLACK;
 
     public GMainPanel() {
         setBackground(Color.WHITE);
@@ -57,10 +61,15 @@ public class GMainPanel extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
+        // 줌 변환 적용
+        g2d.scale(zoomLevel, zoomLevel);
+
+        // 배경 그리기 (줌 적용 후)
         g2d.setColor(new Color(240, 240, 240));
-        g2d.fillRect(0, 0, getWidth(), getHeight());
+        g2d.fillRect(0, 0, (int)(getWidth() / zoomLevel), (int)(getHeight() / zoomLevel));
 
         if (canvasBounds != null) {
+            // 캔버스 그리기
             g2d.setColor(new Color(200, 200, 200));
             g2d.fillRect(canvasBounds.x + 5, canvasBounds.y + 5,
                     canvasBounds.width, canvasBounds.height);
@@ -71,6 +80,8 @@ public class GMainPanel extends JPanel {
             g2d.drawRect(canvasBounds.x, canvasBounds.y,
                     canvasBounds.width - 1, canvasBounds.height - 1);
         }
+
+        // 도형 그리기
         for(GShape shape: shapes) {
             shape.draw(g2d);
         }
@@ -195,6 +206,34 @@ public class GMainPanel extends JPanel {
         shapes.clear();
         repaint();
     }
+    public Rectangle getCanvasBounds() {
+        return canvasBounds;
+    }
+
+    public Color getCanvasBackground() {
+        return canvasBackground;
+    }
+    public void setBackgroundImage(BufferedImage image) {
+
+    }
+    public Vector<GShape> getShapes() {
+        return shapes;
+    }
+    public void setShapes(Vector<GShape> shapes) {
+        this.shapes = shapes;
+    }
+    public void paintShapes(Graphics2D g2d) {
+        for (GShape shape : shapes) {
+            shape.draw(g2d);
+        }
+    }
+    public void setCanvasBounds(Rectangle canvasBounds) {
+        this.canvasBound=canvasBounds;
+    }
+
+    public void setCanvasBackground(Color canvasBackground) {
+    }
+
     private class MouseEventHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -204,29 +243,43 @@ public class GMainPanel extends JPanel {
                 this.mouse2Clicked(e);
             }
         }
+        private Point toCanvasPoint(Point screenPoint) {
+            int x = (int)(screenPoint.x / zoomLevel);
+            int y = (int)(screenPoint.y / zoomLevel);
+            return new Point(x, y);
+        }
 
+        private Point toScreenPoint(Point canvasPoint) {
+            int x = (int)(canvasPoint.x * zoomLevel);
+            int y = (int)(canvasPoint.y * zoomLevel);
+            return new Point(x, y);
+        }
         private void mouse1Clicked(MouseEvent e) {
+            Point canvasPoint = toCanvasPoint(e.getPoint());
+            int x = canvasPoint.x;
+            int y = canvasPoint.y;
+
             if (eDrawingState == EDrawingState.eidle) {
-                //set transformer
                 if (eShapeTool.getEPoints() == EPoints.e2P) {
-                    startTransform(e.getX(), e.getY());
+                    startTransform(x, y);
                     eDrawingState = EDrawingState.e2P;
                 } else if (eShapeTool.getEPoints() == EPoints.enP) {
-                    startTransform(e.getX(), e.getY());
+                    startTransform(x, y);
                     eDrawingState = EDrawingState.enP;
                 }
             } else if (eDrawingState == EDrawingState.e2P) {
-                finishTransform(e.getX(), e.getY());
+                finishTransform(x, y);
                 eDrawingState = EDrawingState.eidle;
             } else if (eDrawingState == EDrawingState.enP) {
-                addPoint(e.getX(), e.getY());
+                addPoint(x, y);
             }
         }
 
         @Override
         public void mouseMoved(MouseEvent e) {
             if (eDrawingState == EDrawingState.e2P || eDrawingState == EDrawingState.enP) {
-                keepTransform(e.getX(), e.getY());
+                Point canvasPoint = toCanvasPoint(e.getPoint());
+                keepTransform(canvasPoint.x, canvasPoint.y);
             }
         }
 
@@ -247,6 +300,44 @@ public class GMainPanel extends JPanel {
         @Override
         public void mouseExited(MouseEvent e) { }
         @Override
-        public void mouseWheelMoved(MouseWheelEvent e) {}
+        public void mouseWheelMoved(MouseWheelEvent e) {
+            if (e.isControlDown()) {
+                // Ctrl + 휠: 확대/축소
+                int rotation = e.getWheelRotation();
+                Point mousePoint = e.getPoint();
+
+                // 확대/축소 비율 계산
+                double scaleFactor = 1.1;
+                if (rotation < 0) {
+                    // 휠 위로: 확대
+                    zoomLevel *= scaleFactor;
+                } else {
+                    // 휠 아래로: 축소
+                    zoomLevel /= scaleFactor;
+                }
+
+                // 줌 레벨 제한
+                zoomLevel = Math.max(0.1, Math.min(10.0, zoomLevel));
+
+                repaint();
+            } else {
+                // 일반 휠: 스크롤 (JScrollPane이 자동으로 처리)
+                // 추가 작업 필요 없음
+            }
+            if (e.isControlDown()) {
+                // ... 줌 로직 ...
+                updatePanelSize();
+                repaint();
+            }
+        }
+        private void updatePanelSize() {
+            if (canvasBounds != null) {
+                int width = (int)((canvasBounds.width + 200) * zoomLevel);
+                int height = (int)((canvasBounds.height + 200) * zoomLevel);
+                setPreferredSize(new Dimension(width, height));
+                revalidate();
+            }
+        }
+
     }
 }
