@@ -1,4 +1,4 @@
-package shapes;
+package layers;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,7 +22,9 @@ import javax.swing.SwingConstants;
 
 import frames.GMainFrame;
 import frames.GMainPanel;
-import shapes.GShape.EPoints;
+import layers.shapes.*;
+import layers.shapes.GShape.EPoints;
+
 public class GShapeToolBar extends JToolBar {
 	// attributes
 	private static final long serialVersionUID = 1L;

@@ -1,6 +1,6 @@
-package shapes;
+package layers.shapes;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Path2D;
 
 public class GTriangle extends GShape {
@@ -49,14 +49,7 @@ public class GTriangle extends GShape {
     }
 
     @Override
-    public void addPoint(int x, int y) {
-
-    }
-
-    @Override
-    public GShape clone(int x, int y) {
-        return null;
-    }
+    public void addPoint(int x, int y) {}
 
     // 삼각형 패스 업데이트
     private void updateTrianglePath() {
@@ -125,6 +118,11 @@ public class GTriangle extends GShape {
 
         this.px = x;
         this.py = y;
+    }
+
+    @Override
+    protected Shape createShape() {
+    return (Shape) new GTriangle();
     }
 
     @Override

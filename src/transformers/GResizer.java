@@ -1,14 +1,14 @@
 package transformers;
 
-import shapes.GShape;
-import shapes.GShape.EAnchors;
+import layers.shapes.GAnchors.EAnchors;
+import layers.shapes.GShape;
 
 import java.awt.*;
 
 public class GResizer extends GTransFormer{
     private GShape shape;
     private EAnchors anchor;
-    public GResizer(GShape gshape, GShape.EAnchors anchor) {
+    public GResizer(GShape gshape, EAnchors anchor) {
         super(gshape);
         this.shape = gshape;
         this.anchor =anchor;

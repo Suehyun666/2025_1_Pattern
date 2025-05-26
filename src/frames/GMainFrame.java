@@ -1,6 +1,6 @@
 package frames;
 
-import shapes.GShapeToolBar;
+import layers.GShapeToolBar;
 import java.awt.*;
 
 import javax.swing.*;
@@ -14,7 +14,7 @@ public class GMainFrame extends JFrame {
     private GMenubar menuBar;
     private GMainPanel mainPanel;
     private boolean modified;
-//    private GPictureToolBar pictureToolBar;
+    private GPictureToolBar pictureToolBar;
     // constructor
     public GMainFrame() {
         // attributes
@@ -36,9 +36,9 @@ public class GMainFrame extends JFrame {
         this.shapetoolBar = new GShapeToolBar(this);
         add(shapetoolBar, BorderLayout.WEST);
 
-//        this.pictureToolBar = new GPictureToolBar(this);
-//        add(pictureToolBar, BorderLayout.SOUTH);
-//        pictureToolBar.showToolBar(true);
+        this.pictureToolBar = new GPictureToolBar(this);
+        add(pictureToolBar, BorderLayout.SOUTH);
+        pictureToolBar.showToolBar(true);
 
         setVisible(true);
     }
@@ -47,10 +47,10 @@ public class GMainFrame extends JFrame {
     public void initialize() {
     	this.menuBar.associate(this.mainPanel,this);
     	this.shapetoolBar.associate(this.mainPanel);
-    	
         menuBar.initialize();
         shapetoolBar.initialize();
         mainPanel.initialize();
+        pictureToolBar.initialize();
     }
 
     public GMainPanel getMainPanel() {

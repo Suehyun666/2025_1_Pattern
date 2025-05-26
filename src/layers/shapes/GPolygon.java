@@ -1,6 +1,6 @@
-package shapes;
+package layers.shapes;
 
-import java.awt.Polygon;
+import java.awt.*;
 
 public class GPolygon extends GShape {
 	private Polygon polygon;
@@ -79,6 +79,11 @@ public class GPolygon extends GShape {
 	}
 
 	@Override
+	protected Shape createShape() {
+		return (Shape) new GPolygon();
+	}
+
+	@Override
 	public void rotate(int x, int y) {
 		if (this.polygon == null || this.polygon.npoints <= 0) return;
 
@@ -111,8 +116,6 @@ public class GPolygon extends GShape {
 		this.px = x;
 		this.py = y;
 	}
-
-	@Override
 	public GShape clone(int x, int y) {
 		GPolygon cloned = new GPolygon();
 

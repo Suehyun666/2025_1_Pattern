@@ -12,11 +12,11 @@ import java.util.Stack;
 import java.util.Vector;
 import javax.swing.JPanel;
 
-import shapes.GRectangle;
-import shapes.GShape;
-import shapes.GShape.EPoints;
-import shapes.GShape.EAnchors;
-import shapes.GShapeToolBar.EShapeTool;
+import layers.shapes.GAnchors.EAnchors;
+import layers.shapes.GRectangle;
+import layers.shapes.GShape;
+import layers.shapes.GShape.EPoints;
+import layers.GShapeToolBar.EShapeTool;
 import transformers.*;
 
 public class GMainPanel extends JPanel {
@@ -66,17 +66,13 @@ public class GMainPanel extends JPanel {
         redoStack = new Stack<>();
         copiedShape = null;
     }
-
-    // GMainPanel.java의 paintComponent 메서드 수정
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        // 줌 변환 적용
         g2d.scale(zoomLevel, zoomLevel);
 
-        // 배경 그리기 (줌 적용 후)
         g2d.setColor(new Color(240, 240, 240));
         g2d.fillRect(0, 0, (int)(getWidth() / zoomLevel), (int)(getHeight() / zoomLevel));
 
@@ -91,13 +87,11 @@ public class GMainPanel extends JPanel {
             g2d.fillRect(canvasBounds.x, canvasBounds.y,
                     canvasBounds.width, canvasBounds.height);
 
-            // 배경 이미지가 있으면 그리기 - 이 부분이 누락되어 있습니다!
             if (backgroundImage != null) {
                 g2d.drawImage(backgroundImage, canvasBounds.x, canvasBounds.y,
                         canvasBounds.width, canvasBounds.height, null);
             }
 
-            // 캔버스 테두리
             g2d.setColor(Color.DARK_GRAY);
             g2d.drawRect(canvasBounds.x, canvasBounds.y,
                     canvasBounds.width - 1, canvasBounds.height - 1);
@@ -137,7 +131,7 @@ public class GMainPanel extends JPanel {
             for (GShape shape : selectedShapes) {
                 EAnchors anchor = shape.onAnchor(x, y);
                 if (anchor != null) {
-                    if (anchor == GShape.EAnchors.ROTATE) {
+                    if (anchor == EAnchors.RR) {
                         this.transformer = new GRotator(shape, selectedShapes);
                         this.transformer.start((Graphics2D)getGraphics(), x, y);
                         this.eDrawingState = EDrawingState.eRotate;
@@ -176,6 +170,7 @@ public class GMainPanel extends JPanel {
         this.transformer.addpoint((Graphics2D) getGraphics(), x, y);
     }
     private void finishTransform(int x, int y) {
+    	this.currentShape.setSelected(true);
         this.transformer.finish((Graphics2D) getGraphics(), x, y);
         if(this.eShapeTool==EShapeTool.eSelected) {
             Rectangle selectionBounds = ((GRectangle)this.currentShape).getBounds();
@@ -208,11 +203,11 @@ public class GMainPanel extends JPanel {
         selectedShapes.clear();
         currentShape = null;
         selectedShape = null;
-        backgroundImage = null;  // 새 캔버스 생성 시 배경 이미지 초기화
+        backgroundImage = null;
 
         switch (background) {
             case "White":
-                canvasBackground = Color.WHITE;  // setBackground가 아니라 canvasBackground
+                canvasBackground = Color.WHITE;
                 break;
             case "Background Color":
                 canvasBackground = Color.LIGHT_GRAY;
@@ -286,7 +281,7 @@ public class GMainPanel extends JPanel {
     public void saveState() {
         Vector<GShape> currentState = getClonedShapes();
         undoStack.push(currentState);
-        redoStack.clear(); // 새로운 액션 시 redo 스택 클리어
+        redoStack.clear(); 
     }
     public void copyShape(GShape shape) {
         if (shape != null) {
@@ -314,11 +309,9 @@ public class GMainPanel extends JPanel {
     public boolean hasCopiedShape() {
         return copiedShape != null;
     }
-
-    // Shape 삭제
     public void deleteShape(GShape shape) {
         if (shape != null) {
-            saveState(); // Undo를 위한 상태 저장
+            saveState(); 
 
             shapes.remove(shape);
             if (selectedShape == shape) {
@@ -327,12 +320,10 @@ public class GMainPanel extends JPanel {
             repaint();
         }
     }
-
-    // Shape 앞으로 이동
     public void moveShapeForward(GShape shape) {
         int index = shapes.indexOf(shape);
         if (index < shapes.size() - 1 && index >= 0) {
-            saveState(); // Undo를 위한 상태 저장
+            saveState(); 
 
             shapes.remove(index);
             shapes.add(index + 1, shape);
@@ -340,11 +331,10 @@ public class GMainPanel extends JPanel {
         }
     }
 
-    // Shape 뒤로 이동
     public void moveShapeBackward(GShape shape) {
         int index = shapes.indexOf(shape);
         if (index > 0) {
-            saveState(); // Undo를 위한 상태 저장
+            saveState(); 
 
             shapes.remove(index);
             shapes.add(index - 1, shape);
@@ -352,7 +342,6 @@ public class GMainPanel extends JPanel {
         }
     }
 
-    // Shape들의 복사본 생성 (Undo/Redo용)
     private Vector<GShape> getClonedShapes() {
         Vector<GShape> clonedShapes = new Vector<>();
         for (GShape shape : shapes) {
@@ -361,7 +350,6 @@ public class GMainPanel extends JPanel {
         return clonedShapes;
     }
 
-    // Default color getters and setters
     public Color getDefaultFillColor() {
         return defaultFillColor;
     }
@@ -394,7 +382,6 @@ public class GMainPanel extends JPanel {
         this.defaultStrokeStyle = style;
     }
 
-    // GShape에 필요한 메서드들
     public void addShape(GShape shape) {
         shapes.add(shape);
     }
@@ -474,33 +461,19 @@ public class GMainPanel extends JPanel {
         @Override
         public void mouseWheelMoved(MouseWheelEvent e) {
             if (e.isControlDown()) {
-                // Ctrl + 휠: 확대/축소
                 int rotation = e.getWheelRotation();
                 Point mousePoint = e.getPoint();
 
-                // 확대/축소 비율 계산
                 double scaleFactor = 1.1;
                 if (rotation < 0) {
-                    // 휠 위로: 확대
                     zoomLevel *= scaleFactor;
                 } else {
-                    // 휠 아래로: 축소
                     zoomLevel /= scaleFactor;
                 }
-
-                // 줌 레벨 제한
                 zoomLevel = Math.max(0.1, Math.min(10.0, zoomLevel));
 
                 repaint();
-            } else {
-                // 일반 휠: 스크롤 (JScrollPane이 자동으로 처리)
-                // 추가 작업 필요 없음
             }
-//            if (e.isControlDown()) {
-//                // ... 줌 로직 ...
-//                updatePanelSize();
-//                repaint();
-//            }
         }
         private void updatePanelSize() {
             if (canvasBounds != null) {

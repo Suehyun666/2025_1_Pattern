@@ -1,6 +1,6 @@
-package shapes;
+package layers.shapes;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
@@ -64,6 +64,11 @@ public class GEllipse extends GShape {
 	}
 
 	@Override
+	protected Shape createShape() {
+		return (Shape) new GEllipse();
+	}
+
+	@Override
 	public void rotate(int x, int y) {
 		double centerX = ellipse.getX() + ellipse.getWidth() / 2;
 		double centerY = ellipse.getY() + ellipse.getHeight() / 2;
@@ -80,7 +85,6 @@ public class GEllipse extends GShape {
 		this.py = y;
 	}
 
-	@Override
 	public GShape clone(int x, int y) {
 		GEllipse cloned = new GEllipse();
 		cloned.ellipse = (Ellipse2D) this.ellipse.clone();

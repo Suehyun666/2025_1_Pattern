@@ -1,6 +1,6 @@
 package transformers;
 
-import shapes.GShape;
+import layers.shapes.GShape;
 
 import java.awt.*;
 import java.util.Vector;

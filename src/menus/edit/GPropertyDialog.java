@@ -2,7 +2,7 @@ package menus.edit;
 
 import javax.swing.*;
 import java.awt.*;
-import shapes.GShape;
+import layers.shapes.GShape;
 
 public class GPropertyDialog extends JDialog {
     private JTextField xField;

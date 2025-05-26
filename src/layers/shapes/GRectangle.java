@@ -1,6 +1,6 @@
-package shapes;
+package layers.shapes;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
@@ -78,8 +78,8 @@ public class GRectangle extends GShape {
 	}
 
 	@Override
-	public GShape clone(int x, int y) {
-		return null;
+	protected Shape createShape() {
+		return (Shape) new GRectangle();
 	}
 
 	@Override

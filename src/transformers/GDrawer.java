@@ -1,7 +1,7 @@
 package transformers;
 
 import java.awt.Graphics2D;
-import shapes.GShape;
+import layers.shapes.GShape;
 
 public class GDrawer extends GTransFormer {
 	private GShape shape;

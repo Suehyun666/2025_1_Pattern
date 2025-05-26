@@ -1,6 +1,6 @@
-package shapes;
+package layers.shapes;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Line2D;
 
 public class GLine extends GShape {
@@ -60,6 +60,11 @@ public class GLine extends GShape {
 	}
 
 	@Override
+	protected Shape createShape() {
+	return (Shape) new GLine();
+	}
+
+	@Override
 	public void rotate(int x, int y) {
 		if (line == null) return;
 
@@ -80,8 +85,6 @@ public class GLine extends GShape {
 		this.px = x;
 		this.py = y;
 	}
-
-	@Override
 	public GShape clone(int x, int y) {
 		GLine cloned = new GLine();
 		float dx = x - line.x1;

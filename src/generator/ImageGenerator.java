@@ -7,7 +7,6 @@ public interface ImageGenerator {
     void setApiKey(String key);
     String getApiKey();
 
-    // 이미지 생성 메소드들
     File generateImage(String prompt) throws Exception;
     File generateImage(String prompt, String apiKey) throws Exception;
     File generateImage(String prompt, String apiKey, String outputPath) throws Exception;

@@ -1,8 +1,6 @@
-package shapes;
+package layers.shapes;
 
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
@@ -66,6 +64,11 @@ public class GText extends GShape {
     }
 
     @Override
+    protected Shape createShape() {
+        return (Shape) new GText();
+    }
+
+    @Override
     public void rotate(int x, int y) {
         // 텍스트 회전 (AffineTransform 적용)
         double centerX = bounds.getX() + bounds.getWidth() / 2;
@@ -86,8 +89,6 @@ public class GText extends GShape {
         this.px = x;
         this.py = y;
     }
-
-    @Override
     public GShape clone(int x, int y) {
         GText cloned = new GText(this.text);
         cloned.x = x;

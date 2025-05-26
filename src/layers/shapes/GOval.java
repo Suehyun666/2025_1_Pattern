@@ -1,6 +1,6 @@
-package shapes;
+package layers.shapes;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
@@ -67,6 +67,11 @@ public class GOval extends GShape{
 	}
 
 	@Override
+	protected Shape createShape() {
+		return (Shape) new GOval();
+	}
+
+	@Override
 	public void rotate(int x, int y) {
 		double centerX = ellipse.getX() + ellipse.getWidth() / 2;
 		double centerY = ellipse.getY() + ellipse.getHeight() / 2;
@@ -84,8 +89,6 @@ public class GOval extends GShape{
 		this.px = x;
 		this.py = y;
 	}
-
-	@Override
 	public GShape clone(int x, int y) {
 		GOval cloned = new GOval();
 		float dx = (float) (x - ellipse.getX());

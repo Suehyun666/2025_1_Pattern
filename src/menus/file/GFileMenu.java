@@ -17,9 +17,7 @@ import javax.swing.*;
 import constants.GMenuConstants.EFileMenuItem;
 import frames.GMainFrame;
 import frames.GMainPanel;
-import shapes.GShape;
-
-import static java.awt.print.Printable.PAGE_EXISTS;
+import layers.shapes.GShape;
 
 public class GFileMenu extends JMenu {
 	//component

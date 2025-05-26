@@ -1,83 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="503dca3c-3471-4514-96c6-0179b8c5b8fa" name="변경" comment="feature : 확대 &amp; 축소">
-      <change afterPath="$PROJECT_DIR$/src/menus/file/GOpenFileDialog.java" afterDir="false" />
+    <list default="true" id="f1e65281-5f5e-44e9-b61c-7c8d82310a48" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/src/command/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frames/GCanvas.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generator/FreeAIImageGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generator/GPictureViewerDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generator/HuggingFaceImageGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generator/ImageGeneratorFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generator/PollinationsImageGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layers/GLayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layers/GPicture.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layers/shapes/GAnchors.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frames/GMainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/GMainFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frames/GMainPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/GMainPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frames/GPictureToolBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/GPictureToolBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generator/ImageGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/generator/ImageGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generator/StabilityAIImageGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/generator/StabilityAIImageGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menus/edit/GEditMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/menus/edit/GEditMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menus/edit/GPropertyDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/menus/edit/GPropertyDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/menus/file/GFileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/menus/file/GFileMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shapes/GEllipse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shapes/GEllipse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shapes/GLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shapes/GLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shapes/GOval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shapes/GOval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shapes/GPicture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shapes/GPicture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GEllipse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/layers/shapes/GEllipse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/layers/shapes/GLine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GOval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/layers/shapes/GOval.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GPicture.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GPolygon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/layers/shapes/GPolygon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GRectangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/layers/shapes/GRectangle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/layers/shapes/GShape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GShapeToolBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/layers/GShapeToolBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GText.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/layers/shapes/GText.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/GTriangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/layers/shapes/GTriangle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/transformers/GDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/transformers/GDrawer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/transformers/GMover.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/transformers/GMover.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/transformers/GResizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/transformers/GResizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/transformers/GRotator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/transformers/GRotator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/transformers/GTransFormer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/transformers/GTransFormer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Suehyun666&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Suehyun666/2025_1_Pattern.git&quot;,
-    &quot;accountId&quot;: &quot;2d620661-3d5e-47cc-980f-fcd585a03346&quot;
-  }
-}</component>
   <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 8
 }</component>
-  <component name="ProjectId" id="2wetFoTV3u8xuhOpzBuscP7mccp" />
+  <component name="ProjectId" id="2xcaSAatqtPSIChN2HC4FGcEZ6G" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;완전-포토샵-따라하기&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/psj03/Desktop/2025_1_Pattern/src/transformers&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
-    &quot;애플리케이션.GMain.executor&quot;: &quot;Run&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "완전-포토샵-따라하기",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true",
+    "애플리케이션.GMain.executor": "Run"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\psj03\Desktop\2025_1_Pattern\src\transformers" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="menus.file" />
-    </key>
+}]]></component>
+  <component name="RunManager">
+    <configuration name="GMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="frames.GMain" />
+      <module name="혼자진행용" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="frames.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="애플리케이션.GMain" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -90,100 +97,17 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
-      <changelist id="503dca3c-3471-4514-96c6-0179b8c5b8fa" name="변경" comment="" />
-      <created>1746413769989</created>
+      <changelist id="f1e65281-5f5e-44e9-b61c-7c8d82310a48" name="변경" comment="" />
+      <created>1748239818408</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1746413769989</updated>
-      <workItem from="1746413771086" duration="1628000" />
-      <workItem from="1746423997312" duration="1406000" />
-      <workItem from="1746520249996" duration="694000" />
-      <workItem from="1746657559235" duration="10144000" />
-      <workItem from="1746680377676" duration="2413000" />
-      <workItem from="1746783501870" duration="285000" />
-      <workItem from="1746790159228" duration="7354000" />
-      <workItem from="1746849183647" duration="5731000" />
+      <updated>1748239818408</updated>
+      <workItem from="1748239819523" duration="138000" />
+      <workItem from="1748240211103" duration="87000" />
     </task>
-    <task id="LOCAL-00001" summary="feat: 도형 추가">
-      <option name="closed" value="true" />
-      <created>1746424777202</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1746424777202</updated>
-    </task>
-    <task id="LOCAL-00002" summary="feat: Transformer 추가 reszie, rotate">
-      <option name="closed" value="true" />
-      <created>1746851847661</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1746851847661</updated>
-    </task>
-    <task id="LOCAL-00003" summary="refactor: Transformer move 수정">
-      <option name="closed" value="true" />
-      <created>1746851867366</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1746851867366</updated>
-    </task>
-    <task id="LOCAL-00004" summary="refactor: 도형 수정">
-      <option name="closed" value="true" />
-      <created>1746852213711</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1746852213711</updated>
-    </task>
-    <task id="LOCAL-00005" summary="refactor: transformer 수정">
-      <option name="closed" value="true" />
-      <created>1746852232081</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1746852232081</updated>
-    </task>
-    <task id="LOCAL-00006" summary="refactor: panel 수정">
-      <option name="closed" value="true" />
-      <created>1746852423504</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1746852423504</updated>
-    </task>
-    <task id="LOCAL-00007" summary="feature : new &amp; save /save :불완전">
-      <option name="closed" value="true" />
-      <created>1746871824412</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1746871824412</updated>
-    </task>
-    <task id="LOCAL-00008" summary="feature : 확대 &amp; 축소">
-      <option name="closed" value="true" />
-      <created>1746877176678</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1746877176678</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 도형 추가" />
-    <MESSAGE value="feat: Transformer 추가 reszie, rotate" />
-    <MESSAGE value="refactor: Transformer move 수정" />
-    <MESSAGE value="refactor: 도형 수정" />
-    <MESSAGE value="refactor: transformer 수정" />
-    <MESSAGE value="refactor: panel 수정" />
-    <MESSAGE value="20250430 중간 커밋" />
-    <MESSAGE value="feature : new &amp; save /save :불완전" />
-    <MESSAGE value="feature : 확대 &amp; 축소" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature : 확대 &amp; 축소" />
   </component>
 </project>

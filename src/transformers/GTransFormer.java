@@ -2,7 +2,7 @@ package transformers;
 
 import java.awt.Graphics2D;
 
-import shapes.GShape;
+import layers.shapes.GShape;
 
 public abstract class GTransFormer {
 	protected GShape shape;

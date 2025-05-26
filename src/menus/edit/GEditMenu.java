@@ -10,7 +10,7 @@ import javax.swing.*;
 import constants.GMenuConstants.EEditMenuItem;
 import frames.GMainFrame;
 import frames.GMainPanel;
-import shapes.GShape;
+import layers.shapes.GShape;
 
 public class GEditMenu extends JMenu {
     // attributes

@@ -3,7 +3,7 @@ package transformers;
 import java.awt.Graphics2D;
 import java.util.Vector;
 
-import shapes.GShape;
+import layers.shapes.GShape;
 
 public class GMover extends GTransFormer {
 	private GShape shape;
