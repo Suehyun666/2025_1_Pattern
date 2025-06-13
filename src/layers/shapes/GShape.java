@@ -206,7 +206,6 @@ public abstract class GShape implements Serializable,Cloneable{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public abstract Icon isLocked();
 	public void setVisible(boolean selected2) {
 		
 	}

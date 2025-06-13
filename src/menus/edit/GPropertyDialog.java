@@ -116,7 +116,7 @@ public class GPropertyDialog extends JDialog {
         mainPanel.add(visibleCheck, gbc);
 
         gbc.gridy = 12;
-        lockedCheck = new JCheckBox("Locked", shape.isLocked());
+        lockedCheck = new JCheckBox("Locked",null);
         mainPanel.add(lockedCheck, gbc);
 
         add(mainPanel, BorderLayout.CENTER);
